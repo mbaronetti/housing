@@ -8,6 +8,8 @@ import { Modal as AntModal , Menu , Button , notification , Input} from 'antd';
 import logo from './media/logo.png';
 import './css/Styles.css';
 
+//WITH REDUX JS
+
 class App extends Component {
     constructor(props){
         super(props);
@@ -53,6 +55,7 @@ class App extends Component {
             //Not for demo
         }
     }
+    
     openNotification = () => {
       const notificationMessage = <div>
                                     <p>Subscribe to receive the BEST DEALS & Last minute offers!</p>
