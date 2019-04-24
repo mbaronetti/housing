@@ -12,10 +12,17 @@
   padding: 150px;
   font-size: 3em;
   color: orangered;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.95);
   border-radius: 3px;
-  z-index: 9; }
+  z-index: 9;
+  opacity: 0;
+  visibility: hidden;
+  animation: preloader .15s ease forwards; }
 
+@keyframes preloader {
+  to {
+    opacity: .9;
+    visibility: visible; } }
 .logo {
   max-height: 100%; }
 

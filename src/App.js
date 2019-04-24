@@ -39,8 +39,8 @@ class App extends Component {
         const key = item.key;
         this.setState({currentUrl: sampleUrls[key]})
     }
-    handleModal = (modalVisible , modalTitle , modalContent) => {
-        this.setState({modalVisible , modalTitle , modalContent})
+    handleModal = (modalVisible , modalTitle , modalContent , modalWidth) => {
+        this.setState({modalVisible , modalTitle , modalContent , modalWidth});
     }
     bookClicked = () => {
         const {userLogged} = this.state;
@@ -56,19 +56,19 @@ class App extends Component {
     openNotification = () => {
       const notificationMessage = <div>
                                     <p>Subscribe to receive the BEST DEALS & Last minute offers!</p>
-                                    <Button onClick={() => this.handleModal(true, 'Subscribe' ,<Input type="text" placeholder="Enter your email"/>)} type="primary">SUBSCRIBE</Button>
+                                    <Button onClick={() => this.handleModal(true, 'Subscribe' ,<Input type="text" placeholder="Enter your email"/> , 300)} type="primary">SUBSCRIBE</Button>
                                   </div>;
       notification.open({
         duration: null,
         placement: 'bottomRight',
-        message: 'Notification Title',
+        message: 'Stay in touch!',
         description: notificationMessage,
       });
     };
         
     closeModal = () => {this.setState({modalVisible:false})}
     render(){
-      const {loading , currentUrl , menuItems , errorMessage , error , modalVisible , modalTitle , modalContent} = this.state;
+      const {loading , currentUrl , menuItems , errorMessage , error , modalVisible , modalTitle , modalContent , modalWidth} = this.state;
       if(!error)
       return (
         <div className="App">
@@ -85,7 +85,7 @@ class App extends Component {
                                              url={currentUrl} />
                                     <Preloader icon="loading" loading={loading} />
           </Layout>
-          <Modal width={768} 
+          <Modal width={modalWidth?modalWidth:600} 
                  visible={modalVisible} 
                  title={modalTitle} 
                  onOk={this.closeModal} 

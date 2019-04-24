@@ -39,7 +39,7 @@ class Gallery extends Component{
         const {carouselImages} = this.state;
         const key = e.target.getAttribute('data-key');
         const modalContent = <Carousel ref={slider => (this.slider = slider)}>{carouselImages}</Carousel>;
-        this.props.handleModal(true , 'Preview' , modalContent);
+        this.props.handleModal(true , 'Preview' , modalContent , 800);
         setTimeout(() => this.goToImage(key) , 0)
     }
     goToImage = index => {

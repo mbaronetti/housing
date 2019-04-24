@@ -25,6 +25,6 @@ export const Modal = props => {
                      onCancel={props.onCancel}
                      title={props.title}
                      footer={props.footer}>
-                           {props.children}
+           {props.children}
            </AntModal>
 }
