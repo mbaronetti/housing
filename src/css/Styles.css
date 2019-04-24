@@ -1,0 +1,87 @@
+@import url(~antd/dist/antd.css);
+#root, .App, .ant-layout {
+  height: 100%; }
+
+.preloader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  padding: 150px;
+  font-size: 3em;
+  color: orangered;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 3px;
+  z-index: 9; }
+
+.logo {
+  max-height: 100%; }
+
+.content {
+  position: relative;
+  margin: 20px;
+  padding: 10px; }
+
+.error-page {
+  padding: 100px;
+  text-align: center; }
+  .error-page i {
+    font-size: 3.5em;
+    color: tomato; }
+  .error-page p {
+    font-size: 1.25em;
+    font-style: italic;
+    margin: 20px; }
+
+.house-image {
+  transition: opacity .25s ease; }
+
+.house-info-list {
+  padding: 0;
+  list-style: none;
+  margin-top: 10px; }
+  .house-info-list li {
+    padding: 5px 0; }
+    .house-info-list li.house-info-list_highlighted {
+      font-weight: bold;
+      font-size: 1.25em; }
+
+/* Hacks */
+.ant-carousel .slick-dots li button {
+  background: #34495e;
+  opacity: 1;
+  height: 5px; }
+
+.ant-carousel .slick-dots li.slick-active button {
+  background: orangered;
+  width: 48px; }
+
+/* Helpers */
+.text-center {
+  text-align: center; }
+
+.img-fluid {
+  width: 100%;
+  max-width: 100%; }
+
+.border-white {
+  outline: 1px solid #fff; }
+
+.pointer {
+  cursor: pointer; }
+
+.btn-funda {
+  background: orangered !important;
+  transition: opacity .25s ease; }
+  .btn-funda:hover {
+    opacity: .85; }
+
+.green {
+  color: #2ecc71; }
+
+button {
+  border: none !important; }
+
+/*# sourceMappingURL=Styles.css.map */
