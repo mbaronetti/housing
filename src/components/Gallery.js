@@ -1,10 +1,22 @@
 import React , { Component } from 'react';
+import { connect } from 'react-redux';
+import { showModal } from '../redux/actions/index';
 import {Row , Col , Carousel} from 'antd';
 import {HouseInfo} from './HouseInfo';
 import {HouseDetails} from './HouseDetails';
 import {sampleUrls} from './Helpers';
 //const url = "http://partnerapi.funda.nl/feeds/Aanbod.svc/json/detail/ac1b0b1572524640a0ecc54de453ea9f/koop/6289a7bb-a1a8-40d5-bed1-bff3a5f62ee6/"
 const url = sampleUrls[0];
+
+const mapStateToProps = state => {
+    return {modalVisible: state.modalVisible}
+}
+
+const mapDispatchToProps = dispatch => {
+    return{
+        showModal: show => dispatch(showModal(show))
+    }
+}
 
 class Gallery extends Component{
     constructor(props){
@@ -37,10 +49,12 @@ class Gallery extends Component{
 
     openGallery = (e) => {
         const {carouselImages} = this.state;
+        const { showModal } = this.props;
         const key = e.target.getAttribute('data-key');
         const modalContent = <Carousel ref={slider => (this.slider = slider)}>{carouselImages}</Carousel>;
-        this.props.handleModal(true , 'Preview' , modalContent , 800);
-        setTimeout(() => this.goToImage(key) , 0)
+        //this.props.handleModal(true , 'Preview' , modalContent , 800);
+        showModal(true);
+        //setTimeout(() => this.goToImage(key) , 200)
     }
     goToImage = index => {
         this.slider.goTo(index)
@@ -127,5 +141,5 @@ class Gallery extends Component{
       );
     }
 }
-
-export default Gallery;
+    
+export default connect(mapStateToProps , mapDispatchToProps)(Gallery);

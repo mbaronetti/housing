@@ -1,4 +1,5 @@
 import React , {Component} from 'react';
+import { connect } from 'react-redux';
 import {Layout} from './components/Layout';
 import {Sidebar} from './components/Sidebar';
 import {ErrorPage} from './components/ErrorPage';
@@ -9,6 +10,9 @@ import logo from './media/logo.png';
 import './css/Styles.css';
 
 //WITH REDUX JS
+const mapStateToProps = state => {
+    return {modalVisible: state.modalVisible}
+}
 
 class App extends Component {
     constructor(props){
@@ -33,9 +37,9 @@ class App extends Component {
     setMenuItems = urls => {
         const menuItems = [];
         for(let i = 0; i<sampleUrls.length;i++){
-            menuItems.push(<Menu.Item key={i}>House {i+1}</Menu.Item>)
+            menuItems.push(<Menu.Item key={i}>House {i+1}</Menu.Item>);
         }
-        this.setState({menuItems})
+        this.setState({menuItems});
     }
     handleClick = (item) => {
         const key = item.key;
@@ -71,7 +75,7 @@ class App extends Component {
         
     closeModal = () => {this.setState({modalVisible:false})}
     render(){
-      const {loading , currentUrl , menuItems , errorMessage , error , modalVisible , modalTitle , modalContent , modalWidth} = this.state;
+      const {loading , currentUrl , menuItems , errorMessage , error , modalTitle , modalContent , modalWidth} = this.state;
       if(!error)
       return (
         <div className="App">
@@ -89,7 +93,7 @@ class App extends Component {
                                     <Preloader icon="loading" loading={loading} />
           </Layout>
           <Modal width={modalWidth?modalWidth:600} 
-                 visible={modalVisible} 
+                 visible={this.props.modalVisible} 
                  title={modalTitle} 
                  onOk={this.closeModal} 
                  onCancel={this.closeModal} 
@@ -103,4 +107,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default connect(mapStateToProps)(App);
