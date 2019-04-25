@@ -3,7 +3,7 @@ import {Layout} from './components/Layout';
 import {Sidebar} from './components/Sidebar';
 import {ErrorPage} from './components/ErrorPage';
 import Gallery from './components/Gallery';
-import {sampleUrls , Preloader , Modal} from './components/Helpers';
+import {sampleUrls , Preloader , Modal , Notification , Message} from './components/Helpers';
 import { Modal as AntModal , Menu , Button , notification , Input} from 'antd';
 import logo from './media/logo.png';
 import './css/Styles.css';
@@ -20,10 +20,15 @@ class App extends Component {
     }
     componentDidMount = () => {
         this.setMenuItems(sampleUrls);
-        setTimeout(() => this.openNotification() , 5000 );
+        setTimeout(() => this.loadNotification() , 5000 );
     }
     dataLoaded = val => {
         this.setState({loading: !val})
+        if(!val){
+            Message('loading' , 'Fetching data');
+        }else{
+            Message('destroy');
+        } 
     }
     hasErrored = (val , message) => {
         this.setState({error: val , errorMessage: message})
@@ -47,26 +52,23 @@ class App extends Component {
         if(!userLogged){
             AntModal.error({
                 title: 'Authentication error',
-                content: 'You must be logged to perform this action'
+                content: 'This feature is not available in demo'
             })
         }else{
             //Not for demo
         }
     }
-    openNotification = () => {
-      const notificationMessage = <div>
+    loadNotification = () => {
+        const notificationMessage = <div>
                                     <p>Subscribe to receive the BEST DEALS & Last minute offers!</p>
-                                    <Button onClick={() => this.handleModal(true, 'Subscribe' ,<Input type="text" placeholder="Enter your email"/> , 300)} type="primary">SUBSCRIBE</Button>
+                                    <Button onClick={() => this.handleModal(true, 'Subscribe' ,<Input type="text" placeholder="Enter your email"/> , 300)}
+                                    type="primary">SUBSCRIBE</Button>
                                   </div>;
-      notification.open({
-        duration: null,
-        placement: 'bottomRight',
-        message: 'Stay in touch!',
-        description: notificationMessage,
-      });
-    };
-        
-    closeModal = () => {this.setState({modalVisible:false})}
+        Notification(null , 'bottomRight' , 'Stay in touch' , notificationMessage);
+    }
+    closeModal = () => {
+        this.setState({modalVisible:false});
+    }
     render(){
       const {loading , currentUrl , menuItems , errorMessage , error , modalVisible , modalTitle , modalContent , modalWidth} = this.state;
       if(!error)

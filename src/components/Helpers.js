@@ -1,5 +1,5 @@
 import React from 'react';
-import {Icon , Modal as AntModal} from 'antd';
+import {Icon , Modal as AntModal , notification , message} from 'antd';
 
 export const sampleUrls = [
     "https://api.myjson.com/bins/cg25c" , 
@@ -13,7 +13,6 @@ export const sampleUrls = [
 export const Preloader = props => {
     if(props.loading)
     return <div className="preloader">
-                <Icon type={props.icon} />
            </div>
     return null;
 }
@@ -27,4 +26,31 @@ export const Modal = props => {
                      footer={props.footer}>
            {props.children}
            </AntModal>
+}
+
+export const Notification = (duration , placement , message , description) => {
+      const notificationMessage = 
+      notification.open({
+        duration: duration,
+        placement: placement,
+        message: message,
+        description: description,
+      });
+};
+
+export const Message = (type , text) =>{ 
+    switch(type){
+        case 'success':
+             return message.success(text);
+        case 'error':
+             return message.error(text);
+        case 'warning':
+             return message.warning(text);
+        case 'loading':
+             return message.loading(text);
+        case 'destroy':
+             return message.destroy();
+        default:
+             return message.info(text);
+   }
 }
