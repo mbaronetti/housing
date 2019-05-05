@@ -1,6 +1,6 @@
 import React , { Component } from 'react';
 import { connect } from 'react-redux';
-import { showModal } from '../redux/actions/index';
+import { showModal , setData , setHouseImages} from '../redux/actions/index';
 import {Row , Col , Carousel} from 'antd';
 import {HouseInfo} from './HouseInfo';
 import {HouseDetails} from './HouseDetails';
@@ -9,12 +9,19 @@ import {sampleUrls} from './Helpers';
 const url = sampleUrls[0];
 
 const mapStateToProps = state => {
-    return {modalVisible: state.modalVisible}
+    return {
+        modalVisible: state.modalVisible,
+        data: state.data,
+        houseImages: state.houseImages,
+        showModal: state.showModal
+    }
 }
 
 const mapDispatchToProps = dispatch => {
     return{
-        showModal: show => dispatch(showModal(show))
+        showModal: val => dispatch(showModal(val)),
+        setData: data => dispatch(setData(data)),
+        setHouseImages: data => dispatch(setHouseImages(data))
     }
 }
 
@@ -32,9 +39,9 @@ class Gallery extends Component{
         .then(response => response.json())
         .then(data => {
             console.log(data); 
-            this.setState({data});
             this.props.dataLoaded(true);
             this.getHouseImages(data);
+            this.props.setData(data);
         })
         .catch(e => {
             console.error(e);
@@ -52,9 +59,9 @@ class Gallery extends Component{
         const { showModal } = this.props;
         const key = e.target.getAttribute('data-key');
         const modalContent = <Carousel ref={slider => (this.slider = slider)}>{carouselImages}</Carousel>;
-        //this.props.handleModal(true , 'Preview' , modalContent , 800);
+        this.props.handleModal(true , 'Preview' , modalContent , 800);
         showModal(true);
-        //setTimeout(() => this.goToImage(key) , 200)
+        setTimeout(() => this.goToImage(key) , 200)
     }
     goToImage = index => {
         this.slider.goTo(index)
@@ -103,15 +110,18 @@ class Gallery extends Component{
                                      alt="preview" />
                              </Col>);
         }
-        this.setState({houseImages , carouselImages})
+        const images = {houseImages , carouselImages};
+        this.props.setHouseImages(houseImages);
+        this.setState({carouselImages})
     }
     bookClicked = () => {
         this.props.bookClicked();
     }
     
     render(){
-      const {data , houseImages} = this.state;
-      return (
+      const {data , houseImages} = this.props;
+      if(data)
+        return (
         <div className="gallery-container">
             <Row type="flex" align="top" gutter={12}>
                 <Col lg={8} md={12} sm={24}>
@@ -139,6 +149,7 @@ class Gallery extends Component{
             {this.props.children}
         </div>
       );
+        return null
     }
 }
     

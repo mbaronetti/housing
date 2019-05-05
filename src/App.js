@@ -4,6 +4,7 @@ import {Layout} from './components/Layout';
 import {Sidebar} from './components/Sidebar';
 import {ErrorPage} from './components/ErrorPage';
 import Gallery from './components/Gallery';
+import { showModal } from './redux/actions/index';
 import {sampleUrls , Preloader , Modal} from './components/Helpers';
 import { Modal as AntModal , Menu , Button , notification , Input} from 'antd';
 import logo from './media/logo.png';
@@ -12,6 +13,12 @@ import './css/Styles.css';
 //WITH REDUX JS
 const mapStateToProps = state => {
     return {modalVisible: state.modalVisible}
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        showModal: val => dispatch(showModal(val))
+    }
 }
 
 class App extends Component {
@@ -45,8 +52,8 @@ class App extends Component {
         const key = item.key;
         this.setState({currentUrl: sampleUrls[key]})
     }
-    handleModal = (modalVisible , modalTitle , modalContent , modalWidth) => {
-        this.setState({modalVisible , modalTitle , modalContent , modalWidth});
+    handleModal = (oldVal , modalTitle , modalContent , modalWidth) => {
+        this.setState({oldVal , modalTitle , modalContent , modalWidth});
     }
     bookClicked = () => {
         const {userLogged} = this.state;
@@ -73,7 +80,7 @@ class App extends Component {
       });
     };
         
-    closeModal = () => {this.setState({modalVisible:false})}
+    closeModal = () => {this.props.showModal(false)}
     render(){
       const {loading , currentUrl , menuItems , errorMessage , error , modalTitle , modalContent , modalWidth} = this.state;
       if(!error)
@@ -107,4 +114,4 @@ class App extends Component {
     }
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps , mapDispatchToProps)(App);

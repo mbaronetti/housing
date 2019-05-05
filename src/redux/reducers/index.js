@@ -1,17 +1,21 @@
 // src/js/reducers/index.js
-import { SHOW_MODAL } from '../Constants';
+import { SHOW_MODAL , SET_DATA , SET_IMAGES} from '../Constants';
 
-const initialState = {
-  modalVisible: false
-};
 
-function rootReducer(state = initialState, action) {
+function rootReducer(state = {}, action) {
     
     if(action.type === SHOW_MODAL){
-        let newState;
-        newState = {...state, modalVisible: action.payload}
-        return newState;
+        return {...state, modalVisible: action.value}
     }
+    
+    if(action.type === SET_DATA){
+        return {...state , data: action.data}
+    }
+    
+    if(action.type === SET_IMAGES){
+        return {...state , houseImages: action.data}
+    }
+    
   return state;
     
 };

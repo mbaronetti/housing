@@ -1,9 +1,23 @@
 // src/js/actions/index.js
-import { SHOW_MODAL } from '../Constants';
+import { SHOW_MODAL , SET_DATA , SET_IMAGES} from '../Constants';
 
-export const showModal = payload => {
+export const showModal = value => {
     return {
         type: SHOW_MODAL,
-        payload
+        value
+    }
+}
+
+export const setData = data => {
+    return{
+        type: SET_DATA,
+        data
+    }
+}
+
+export const setHouseImages = data => {
+    return{
+        type: SET_IMAGES,
+        data
     }
 }
