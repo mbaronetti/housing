@@ -13,7 +13,8 @@ const mapStateToProps = state => {
         modalVisible: state.modalVisible,
         data: state.data,
         houseImages: state.houseImages,
-        showModal: state.showModal
+        showModal: state.showModal,
+        carouselImages: state.carouselImages
     }
 }
 
@@ -55,7 +56,7 @@ class Gallery extends Component{
     }
 
     openGallery = (e) => {
-        const {carouselImages} = this.state;
+        const {carouselImages} = this.props;
         const { showModal } = this.props;
         const key = e.target.getAttribute('data-key');
         const modalContent = <Carousel ref={slider => (this.slider = slider)}>{carouselImages}</Carousel>;
@@ -111,8 +112,7 @@ class Gallery extends Component{
                              </Col>);
         }
         const images = {houseImages , carouselImages};
-        this.props.setHouseImages(houseImages);
-        this.setState({carouselImages})
+        this.props.setHouseImages(images);
     }
     bookClicked = () => {
         this.props.bookClicked();

@@ -13,7 +13,7 @@ function rootReducer(state = {}, action) {
     }
     
     if(action.type === SET_IMAGES){
-        return {...state , houseImages: action.data}
+        return {...state , houseImages: action.data.houseImages , carouselImages: action.data.carouselImages}
     }
     
   return state;
